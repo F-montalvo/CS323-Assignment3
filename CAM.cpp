@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-Procedure A (){
+void A (){
   if (token == id){
     save = token;
     lexer();
@@ -17,12 +17,12 @@ Procedure A (){
     error_massage (“ id expected”);
 }
 
-Procedure E (){
+void E (){
   T();
   E’();
 }
 
-Procedure E’(){
+void E’(){
   if (token == “+”){
     lexer();
     T();
@@ -31,12 +31,12 @@ Procedure E’(){
   }
 };
 
-Procedure T(){
+void T(){
   F();
   T’();
 }
 
-Procedure T’(){
+void T’(){
   if (token == “*”){
     lexer();
     F();
@@ -45,7 +45,7 @@ Procedure T’(){
   }
 }
 
-Procedure F(){
+void F(){
   if (token == id){
     gen_instr(PUSHM, get_address (token));
     lexer();
@@ -54,7 +54,7 @@ else
   error_message(“id expected”);
 };
 
-Procedure gen_instr(op, oprnd){
+void gen_instr(op, oprnd){
 /* instr_address  shows the current insturction address is global */
   Instr_table [instr_address].address = inst_address;
   Instr_table [instr_address].op = op;
@@ -62,7 +62,7 @@ Procedure gen_instr(op, oprnd){
   Instr_address++;
 };
 
-Procedure while_statement(){
+void while_statement(){
   if (token == “while”){
     addr= instr_address;
     gen_instr(“LABEL”, nil);
@@ -95,7 +95,7 @@ Procedure while_statement(){
   }
 }
 
-Procedure C(){
+void C(){
   E();
   if (token in R){
     op = token;
@@ -115,12 +115,12 @@ Procedure C(){
   }
 }
 
-Procedure back_patch (jump_addr){
+void back_patch (jump_addr){
   addr = pop_jumpstack();
   Instr_table[addr].oprn = jump_addr;
 }
 
-Procedure I (){
+void I (){
   if (token ==”if”){
     addr= instr_address();
     lexer();
