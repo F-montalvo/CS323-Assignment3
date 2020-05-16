@@ -23,10 +23,13 @@ class Symbol_table
     }
 }
 
+stack<int> jumpstack;
+
 Symbol_table array[1000];
 int instr_address = 0;
 string token;
 string id;
+
 void A ()
 {
   if (token == id)
@@ -37,7 +40,7 @@ void A ()
     {
       lexer();
       E();
-      get_instr (POPM,get_address (save) );
+      get_instr ("POPM", get_address(save));
     }
     else
       error_message("= expected");
@@ -54,11 +57,11 @@ void E ()
 
 void Q()
 {
-  if (token == “+”)
+  if (token == "+")
   {
     lexer();
     T();
-    gen_instr(ADD, nil);
+    gen_instr("ADD", 0000);
     Q();
   }
 };
@@ -71,11 +74,11 @@ void T()
 
 void Y()
 {
-  if (token == “*”)
+  if (token == "*")
   {
     lexer();
     F();
-    gen_instr(MUL, nil);
+    gen_instr("MUL", 0000);
     Y();
   }
 }
@@ -84,11 +87,11 @@ void F()
 {
   if (token == id)
   {
-    gen_instr(PUSHM, get_address (token));
+    gen_instr("PUSHM", get_address(token));
     lexer();
   }
 else
-  error_message(“id expected”);
+  error_message("id expected");
 };
 
 void gen_instr(op, oprnd)
@@ -102,16 +105,16 @@ void gen_instr(op, oprnd)
 
 void while_statement()
 {
-  if (token == “while”)
+  if (token == "while")
   {
-    addr= instr_address;
-    gen_instr(“LABEL”, nil);
+    addr = instr_address;
+    gen_instr("LABEL", 0000);
     lexer();
-    if (token == “(“)
+    if (token == "(")
     {
       lexer();
       C();
-      if (token == “)”)
+      if (token == ")")
       {
         lexer();
         S();
@@ -214,9 +217,12 @@ void lexer(){
   token++;
 }
 
-int main(){
+int main()
+{
+  string msg = "! this is comment for this sample code\n for assignment 3 !\n int i, max, sum; \n sum = 0; \n i = 1; \n input ( max); \n while (i < max) { \n sum = sum + i; \n i = i + 1; \n } \n output (sum + max);"
+  cout << msg << endl;            
 
 
 
-return 0;
+  return 0;
 }
