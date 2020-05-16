@@ -156,7 +156,7 @@ void C()
     E();
     case op of
     < : gen_instr (LES, nil);
-    jumpstack.push(instr_address);/* another stack need */
+    push_jumpstack(instr_address);/* another stack need */
     gen_instr (JUMPZ, nil);
     >      :/* you need to do other operators*/
     ==:
@@ -165,29 +165,18 @@ void C()
   }case
   else
   {
-    error_message (" R token expected");
+    error_message (“ R token expected”);
   }
 }
 
 void back_patch (jump_addr)
 {
-  addr = jumpstack.pop();
+  addr = pop_jumpstack();
   Instr_table[addr].oprn = jump_addr;
 }
 
 void I ()
 {
-<<<<<<< HEAD
-  if (token =="if")
-  {
-    addr= instr_address();
-    lexer();
-    if (token =="(")
-    {
-      lexer();
-      C();
-      if (token == ")")
-=======
   if (token[index] ==”if”)
   {
     addr= instr_address();
@@ -197,36 +186,31 @@ void I ()
       lexer();
       C();
       if (token[index] == “)”)
->>>>>>> ac7106dcc2df79a11ef5bc58032f7f075918290d
       {
         lexer();
         S();
         back_patch(instr_address);
-<<<<<<< HEAD
-        if (token == "ifend")
-=======
         if (token[index] == “ifend”)
->>>>>>> ac7106dcc2df79a11ef5bc58032f7f075918290d
         {
           lexer();
         }
         else
         {
-          error_messgage ("ifend expected ");
+          error_messgage (“ifendexpected “);
         }
       }
       else
       {
-        error_message (") expected ");
+        error_message (“) expected “);
       }
     }
     else{
-      error_message ("(expected");
+      error_message (“(expected”);
     }
   }
   else
   {
-    error_message ("if  expected");
+    error_message (“if  expected”);
   }
 }
 
