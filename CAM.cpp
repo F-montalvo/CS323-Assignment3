@@ -26,12 +26,11 @@ class Symbol_table
 Symbol_table array[1000];
 int instr_address = 0;
 string token;
-string id;
 void A ()
 {
   if (token == id)
   {
-    string save = token;
+    save = token;
     lexer();
     if (token == "=")
     {
@@ -210,11 +209,26 @@ void I ()
   }
 }
 
-void lexer(){
+void lexer()
+{
   token++;
 }
 
-int main(){
+int main()
+{
+  string example[11];
+  example[0] = "! this is a comment for this sample code "
+  example[1] = "for assignment 3 !"
+  example[2] = "int i, max, sum;"
+  example[3] = "sum = 0;"
+  example[4] = "i = 1;"
+  example[5] = "input ( max);"
+  example[6] = "while (i < max) {"
+  example[7] = "sum = sum + i;"
+  example[8] = "i = i + 1;"
+  example[9] = "}"
+  example[10] = "output (sum + max);"
+
 
 
 
