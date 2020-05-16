@@ -35,6 +35,10 @@ void lexer(){
   index++;
 }
 
+int get_address(auto object){
+  return &object;
+}
+
 void A ()
 {
   if (token[index] == id)
