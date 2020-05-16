@@ -16,9 +16,15 @@ class Symbol_table
       memloc = m;
       type = t;
     }
+
+    void print()
+    {
+      cout << identifer << "   " << memloc << "   " << type << endl;
+    }
 }
 
 Symbol_table array[1000];
+int instr_address = 0;
 
 void A ()
 {
