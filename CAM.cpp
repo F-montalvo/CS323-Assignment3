@@ -28,15 +28,16 @@ stack<int> jumpstack;
 Symbol_table array[1000];
 int instr_address = 0;
 string token;
+int index=0;
 string id;
 
 void A ()
 {
-  if (token == id)
+  if (token[index] == id)
   {
     string save = token;
     lexer();
-    if (token == "=")
+    if (token[index] == "=")
     {
       lexer();
       E();
@@ -57,7 +58,7 @@ void E ()
 
 void Q()
 {
-  if (token == "+")
+  if (token[index] == "+")
   {
     lexer();
     T();
@@ -74,7 +75,7 @@ void T()
 
 void Y()
 {
-  if (token == "*")
+  if (token[index] == "*")
   {
     lexer();
     F();
@@ -85,7 +86,7 @@ void Y()
 
 void F()
 {
-  if (token == id)
+  if (token[index] == id)
   {
     gen_instr("PUSHM", get_address(token));
     lexer();
@@ -105,22 +106,22 @@ void gen_instr(op, oprnd)
 
 void while_statement()
 {
-  if (token == "while")
+  if (token[index] == "while")
   {
     addr = instr_address;
     gen_instr("LABEL", 0000);
     lexer();
-    if (token == "(")
+    if (token[index] == "(")
     {
       lexer();
       C();
-      if (token == ")")
+      if (token[index] == ")")
       {
         lexer();
         S();
         gen_instr(JUMP, addr);
         back_patch (instr_address);
-        if (token == “whileend”)
+        if (token[index] == “whileend”)
         {
           lexer();
         }
@@ -176,6 +177,7 @@ void back_patch (jump_addr)
 
 void I ()
 {
+<<<<<<< HEAD
   if (token =="if")
   {
     addr= instr_address();
@@ -185,11 +187,26 @@ void I ()
       lexer();
       C();
       if (token == ")")
+=======
+  if (token[index] ==”if”)
+  {
+    addr= instr_address();
+    lexer();
+    if (token[index] ==”(“)
+    {
+      lexer();
+      C();
+      if (token[index] == “)”)
+>>>>>>> ac7106dcc2df79a11ef5bc58032f7f075918290d
       {
         lexer();
         S();
         back_patch(instr_address);
+<<<<<<< HEAD
         if (token == "ifend")
+=======
+        if (token[index] == “ifend”)
+>>>>>>> ac7106dcc2df79a11ef5bc58032f7f075918290d
         {
           lexer();
         }
@@ -214,7 +231,7 @@ void I ()
 }
 
 void lexer(){
-  token++;
+  index++;
 }
 
 int main()
