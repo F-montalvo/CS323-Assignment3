@@ -156,7 +156,7 @@ void C()
     E();
     case op of
     < : gen_instr (LES, nil);
-    push_jumpstack(instr_address);/* another stack need */
+    jumpstack.push(instr_address);/* another stack need */
     gen_instr (JUMPZ, nil);
     >      :/* you need to do other operators*/
     ==:
@@ -171,7 +171,7 @@ void C()
 
 void back_patch (jump_addr)
 {
-  addr = pop_jumpstack();
+  addr = jumpstack.pop();
   Instr_table[addr].oprn = jump_addr;
 }
 
@@ -237,8 +237,12 @@ int main()
     else if (comment == true){                                                   //checking for comment content
         continue;
       }
-
     token = token + msg[i];
+  }
+
+  while(!token)
+  {
+
   }
 
 
