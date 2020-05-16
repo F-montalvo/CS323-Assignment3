@@ -26,11 +26,12 @@ class Symbol_table
 Symbol_table array[1000];
 int instr_address = 0;
 string token;
+string id;
 void A ()
 {
   if (token == id)
   {
-    save = token;
+    string save = token;
     lexer();
     if (token == "=")
     {
