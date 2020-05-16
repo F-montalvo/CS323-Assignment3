@@ -222,19 +222,25 @@ int main()
 {
   string msg = "! this is comment for this sample code\n for assignment 3 !\n int i, max, sum; \n sum = 0; \n i = 1; \n input ( max); \n while (i < max) { \n sum = sum + i; \n i = i + 1; \n } \n output (sum + max);"
   cout << msg << endl;
-
+  bool comment = false;
   int counter = 0;    //counter used to iterate through the vector charray of lines from input file
-  if (red[red.size()-1] == '!' && comment == true){                                        //checking for end of comment
-      comment = false;
-      continue;
-    }
-  else if (red[0] == '!'){                                                          //checking for start of comment
-      comment = true;
-      continue;
-    }
-  else if (comment == true){                                                   //checking for comment content
-      continue;
-    }
+  for(int i = 0; i < msg.size(); i++)
+  {
+    if (msg[msg.size()-1] == '!' && comment == true){                                        //checking for end of comment
+        comment = false;
+        continue;
+      }
+    else if (msg[0] == '!'){                                                          //checking for start of comment
+        comment = true;
+        continue;
+      }
+    else if (comment == true){                                                   //checking for comment content
+        continue;
+      }
+
+    token = token + msg[i];
+  }
+
 
   return 0;
 }
