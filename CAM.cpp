@@ -149,7 +149,7 @@ void while_statement()
       if (token[index] == ")")
       {
         lexer();
-        S();
+        A();
         gen_instr(JUMP, addr);
         back_patch (instr_address);
         if (token[index] == "whileend")
@@ -196,7 +196,7 @@ void I ()
       if (token[index] == ")")
       {
         lexer();
-        S();
+        A();
         back_patch(instr_address);
         if (token[index] == "ifend")
         {
