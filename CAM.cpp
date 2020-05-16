@@ -19,29 +19,29 @@ void A (){
 
 void E (){
   T();
-  E’();
+  Q();
 }
 
-void E’(){
+void Q(){
   if (token == “+”){
     lexer();
     T();
     gen_instr(ADD, nil);
-    E’();
+    Q();
   }
 };
 
 void T(){
   F();
-  T’();
+  Y();
 }
 
-void T’(){
+void Y(){
   if (token == “*”){
     lexer();
     F();
     gen_instr(MUL, nil);
-    T’();
+    Y();
   }
 }
 
