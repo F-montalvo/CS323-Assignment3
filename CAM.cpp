@@ -1,29 +1,54 @@
 #include <iostream>
+#include <stack>
+#include <string>
 using namespace std;
 
-void A (){
-  if (token == id){
+class Symbol_table
+{
+  private:
+    string identifer;
+    int memloc;
+    string type;
+  public:
+    void init(string i,int m,string t)
+    {
+      identifer = i;
+      memloc = m;
+      type = t;
+    }
+}
+
+Symbol_table array[1000];
+
+void A ()
+{
+  if (token == id)
+  {
     save = token;
     lexer();
-    if (token == “=”){
+    if (token == "=")
+    {
       lexer();
       E();
       get_instr (POPM,get_address (save) );
     }
     else
-      error_message (“= expected”);
+      error_message("= expected");
   }
   else
-    error_massage (“ id expected”);
+    error_massage("id expected");
 }
 
-void E (){
+void E ()
+{
   T();
   Q();
 }
 
-void Q(){
-  if (token == “+”){
+void Q()
+{
+  if (token == “+”)
+  {
     lexer();
     T();
     gen_instr(ADD, nil);
@@ -31,13 +56,16 @@ void Q(){
   }
 };
 
-void T(){
+void T()
+{
   F();
   Y();
 }
 
-void Y(){
-  if (token == “*”){
+void Y()
+{
+  if (token == “*”)
+  {
     lexer();
     F();
     gen_instr(MUL, nil);
@@ -45,8 +73,10 @@ void Y(){
   }
 }
 
-void F(){
-  if (token == id){
+void F()
+{
+  if (token == id)
+  {
     gen_instr(PUSHM, get_address (token));
     lexer();
   }
@@ -54,50 +84,62 @@ else
   error_message(“id expected”);
 };
 
-void gen_instr(op, oprnd){
+void gen_instr(op, oprnd)
+{
 /* instr_address  shows the current insturction address is global */
-  Instr_table [instr_address].address = inst_address;
-  Instr_table [instr_address].op = op;
-  Instr_table [instr_address].oprnd = oprnd;
-  Instr_address++;
+  instr_table[instr_address].address = inst_address;
+  instr_table[instr_address].op = op;
+  instr_table[instr_address].oprnd = oprnd;
+  instr_address++;
 };
 
-void while_statement(){
-  if (token == “while”){
+void while_statement()
+{
+  if (token == “while”)
+  {
     addr= instr_address;
     gen_instr(“LABEL”, nil);
     lexer();
-    if (token == “(“){
+    if (token == “(“)
+    {
       lexer();
       C();
-      if (token == “)”){
+      if (token == “)”)
+      {
         lexer();
         S();
         gen_instr(JUMP, addr);
         back_patch (instr_address);
-        if (token == “whileend”){
+        if (token == “whileend”)
+        {
           lexer();
         }
-        else{
+        else
+        {
           error_message (“whileend expected”);
         }
       }
-      else{
+      else
+      {
         error_message (“ ) expected”);
       }
     }
-    else{
+    else
+    {
       error_message (“( expected”);
     }
     }
-  else{
+  else
+  {
     error_message (“while expected”);
   }
 }
 
-void C(){
+void C()
+{
   E();
-  if (token in R){
+  if (token in R)
+  {
     op = token;
     lexer();
     E();
@@ -110,35 +152,44 @@ void C(){
     ^=:
     etc.
   }case
-  else{
+  else
+  {
     error_message (“ R token expected”);
   }
 }
 
-void back_patch (jump_addr){
+void back_patch (jump_addr)
+{
   addr = pop_jumpstack();
   Instr_table[addr].oprn = jump_addr;
 }
 
-void I (){
-  if (token ==”if”){
+void I ()
+{
+  if (token ==”if”)
+  {
     addr= instr_address();
     lexer();
-    if (token ==”(“){
+    if (token ==”(“)
+    {
       lexer();
       C();
-      if (token == “)”){
+      if (token == “)”)
+      {
         lexer();
         S();
         back_patch(instr_address);
-        if (token == “ifend”){
+        if (token == “ifend”)
+        {
           lexer();
         }
-        else{
+        else
+        {
           error_messgage (“ifendexpected “);
         }
       }
-      else{
+      else
+      {
         error_message (“) expected “);
       }
     }
@@ -146,7 +197,8 @@ void I (){
       error_message (“(expected”);
     }
   }
-  else{
+  else
+  {
     error_message (“if  expected”);
   }
 }
