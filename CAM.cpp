@@ -121,28 +121,28 @@ void while_statement()
         S();
         gen_instr(JUMP, addr);
         back_patch (instr_address);
-        if (token[index] == “whileend”)
+        if (token[index] == "whileend")
         {
           lexer();
         }
         else
         {
-          error_message (“whileend expected”);
+          error_message ("whileend expected");
         }
       }
       else
       {
-        error_message (“ ) expected”);
+        error_message (" ) expected");
       }
     }
     else
     {
-      error_message (“( expected”);
+      error_message ("( expected");
     }
     }
   else
   {
-    error_message (“while expected”);
+    error_message ("while expected");
   }
 }
 
@@ -165,7 +165,7 @@ void C()
   }case
   else
   {
-    error_message (“ R token expected”);
+    error_message (" R token expected");
   }
 }
 
@@ -177,40 +177,40 @@ void back_patch (jump_addr)
 
 void I ()
 {
-  if (token[index] ==”if”)
+  if (token[index] =="if")
   {
     addr= instr_address();
     lexer();
-    if (token[index] ==”(“)
+    if (token[index] =="(")
     {
       lexer();
       C();
-      if (token[index] == “)”)
+      if (token[index] == ")")
       {
         lexer();
         S();
         back_patch(instr_address);
-        if (token[index] == “ifend”)
+        if (token[index] == "ifend")
         {
           lexer();
         }
         else
         {
-          error_messgage (“ifendexpected “);
+          error_messgage ("ifend expected ");
         }
       }
       else
       {
-        error_message (“) expected “);
+        error_message (") expected ");
       }
     }
     else{
-      error_message (“(expected”);
+      error_message ("(expected");
     }
   }
   else
   {
-    error_message (“if  expected”);
+    error_message ("if  expected");
   }
 }
 
