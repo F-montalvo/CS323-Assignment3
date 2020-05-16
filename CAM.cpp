@@ -25,7 +25,7 @@ class Symbol_table
 
 Symbol_table array[1000];
 int instr_address = 0;
-
+string token;
 void A ()
 {
   if (token == id)
@@ -207,6 +207,10 @@ void I ()
   {
     error_message (“if  expected”);
   }
+}
+
+void lexer(){
+  token++;
 }
 
 int main(){
