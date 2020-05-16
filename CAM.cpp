@@ -28,8 +28,12 @@ stack<int> jumpstack;
 Symbol_table array[1000];
 int instr_address = 0;
 string token;
-int index=0;
+int index = 0;
 string id;
+
+void lexer(){
+  index++;
+}
 
 void A ()
 {
@@ -155,9 +159,9 @@ void C()
     lexer();
     E();
     case op of
-    < : gen_instr (LES, nil);
+    < : gen_instr ("LES", 0000);
     jumpstack.push(instr_address);/* another stack need */
-    gen_instr (JUMPZ, nil);
+    gen_instr ("JUMPZ", 0000);
     >      :/* you need to do other operators*/
     ==:
     ^=:
@@ -214,9 +218,7 @@ void I ()
   }
 }
 
-void lexer(){
-  index++;
-}
+
 
 int main()
 {
@@ -240,10 +242,10 @@ int main()
     token = token + msg[i];
   }
 
-  while(!token)
-  {
+  //while(!token)
+  //{
 
-  }
+//  }
 
 
   return 0;
