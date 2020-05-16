@@ -39,6 +39,51 @@ int get_address(auto object){
   return &object;
 }
 
+void F()
+{
+  if (token[index] == id)
+  {
+    gen_instr("PUSHM", get_address(token));
+    lexer();
+  }
+  else
+  error_message("id expected");
+};
+
+void Y()
+{
+  if (token[index] == "*")
+  {
+    lexer();
+    F();
+    gen_instr("MUL", 0000);
+    Y();
+  }
+}
+
+void T()
+{
+  F();
+  Y();
+}
+
+void Q()
+{
+  if (token[index] == "+")
+  {
+    lexer();
+    T();
+    gen_instr("ADD", 0000);
+    Q();
+  }
+};
+
+void E ()
+{
+  T();
+  Q();
+}
+
 void A ()
 {
   if (token[index] == id)
@@ -58,50 +103,28 @@ void A ()
     error_massage("id expected");
 }
 
-void E ()
+void C()
 {
-  T();
-  Q();
-}
-
-void Q()
-{
-  if (token[index] == "+")
+  E();
+  if (token in R)
   {
+    op = token;
     lexer();
-    T();
-    gen_instr("ADD", 0000);
-    Q();
-  }
-};
-
-void T()
-{
-  F();
-  Y();
-}
-
-void Y()
-{
-  if (token[index] == "*")
+    E();
+    case op of
+    < : gen_instr ("LES", 0000);
+    jumpstack.push(instr_address);/* another stack need */
+    gen_instr ("JUMPZ", 0000);
+    >      :/* you need to do other operators*/
+    ==:
+    ^=:
+    etc.
+  }case
+  else
   {
-    lexer();
-    F();
-    gen_instr("MUL", 0000);
-    Y();
+    error_message (" R token expected");
   }
 }
-
-void F()
-{
-  if (token[index] == id)
-  {
-    gen_instr("PUSHM", get_address(token));
-    lexer();
-  }
-else
-  error_message("id expected");
-};
 
 void gen_instr(op, oprnd)
 {
@@ -151,29 +174,6 @@ void while_statement()
   else
   {
     error_message ("while expected");
-  }
-}
-
-void C()
-{
-  E();
-  if (token in R)
-  {
-    op = token;
-    lexer();
-    E();
-    case op of
-    < : gen_instr ("LES", 0000);
-    jumpstack.push(instr_address);/* another stack need */
-    gen_instr ("JUMPZ", 0000);
-    >      :/* you need to do other operators*/
-    ==:
-    ^=:
-    etc.
-  }case
-  else
-  {
-    error_message (" R token expected");
   }
 }
 
